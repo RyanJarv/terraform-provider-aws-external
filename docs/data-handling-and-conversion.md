@@ -181,7 +181,7 @@ When using the Terraform Plugin SDK v2, flattening and expanding functions must 
 
 ### AutoFlex for Terraform Plugin Framework (Preferred)
 
-AutoFlex provides two entry-point functions, `Flatten` and `Expand` defined in the package `github.com/hashicorp/terraform-provider-aws/internal/framework/flex`.
+AutoFlex provides two entry-point functions, `Flatten` and `Expand` defined in the package `github.com/hashicorp/terraform-provider-aws/external/framework/flex`.
 Without configuration, these two functions should be able to convert most provider and AWS API structures.
 
 AutoFlex uses field names to map between the source and target structures:

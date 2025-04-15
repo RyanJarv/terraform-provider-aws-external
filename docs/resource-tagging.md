@@ -126,8 +126,8 @@ Add the following imports to the resource's Go source file:
 ```go
 imports (
     /* ... other imports ... */
-    tftags "github.com/hashicorp/terraform-provider-aws/internal/tags"
-    "github.com/hashicorp/terraform-provider-aws/internal/verify"
+    tftags "github.com/hashicorp/terraform-provider-aws/external/tags"
+    "github.com/hashicorp/terraform-provider-aws/external/verify"
     "github.com/hashicorp/terraform-provider-aws/names"
 )
 ```

@@ -186,7 +186,7 @@ Each AWS service API (and sometimes even operations within the same API) varies 
 
 import (
 	// ... other imports ...
-	tfiam "github.com/hashicorp/terraform-provider-aws/internal/service/iam"
+	tfiam "github.com/hashicorp/terraform-provider-aws/external/service/iam"
 )
 
 // ... Create and typically Update function ...
@@ -226,7 +226,7 @@ The below code example highlights this situation for a resource creation that al
 
 import (
 	// ... other imports ...
-	tfiam "github.com/hashicorp/terraform-provider-aws/internal/service/iam"
+	tfiam "github.com/hashicorp/terraform-provider-aws/external/service/iam"
 )
 
 // ... Create function ...

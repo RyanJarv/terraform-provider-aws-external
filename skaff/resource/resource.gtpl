@@ -54,15 +54,15 @@ import (
 	"github.com/hashicorp/terraform-plugin-sdk/v2/helper/schema"
 	"github.com/hashicorp/terraform-plugin-sdk/v2/helper/structure"
 	"github.com/hashicorp/terraform-plugin-sdk/v2/helper/validation"
-	"github.com/hashicorp/terraform-provider-aws/internal/conns"
-	"github.com/hashicorp/terraform-provider-aws/internal/create"
-	"github.com/hashicorp/terraform-provider-aws/internal/errs"
-	"github.com/hashicorp/terraform-provider-aws/internal/flex"
+	"github.com/hashicorp/terraform-provider-aws/external/conns"
+	"github.com/hashicorp/terraform-provider-aws/external/create"
+	"github.com/hashicorp/terraform-provider-aws/external/errs"
+	"github.com/hashicorp/terraform-provider-aws/external/flex"
 {{- if .IncludeTags }}
-	tftags "github.com/hashicorp/terraform-provider-aws/internal/tags"
+	tftags "github.com/hashicorp/terraform-provider-aws/external/tags"
 {{- end }}
-	"github.com/hashicorp/terraform-provider-aws/internal/tfresource"
-	"github.com/hashicorp/terraform-provider-aws/internal/verify"
+	"github.com/hashicorp/terraform-provider-aws/external/tfresource"
+	"github.com/hashicorp/terraform-provider-aws/external/verify"
 	"github.com/hashicorp/terraform-provider-aws/names"
 )
 {{ if .IncludeComments }}

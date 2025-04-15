@@ -50,10 +50,10 @@ import (
 	"github.com/hashicorp/terraform-plugin-testing/helper/resource"
 	"github.com/hashicorp/terraform-plugin-testing/plancheck"
 	"github.com/hashicorp/terraform-plugin-testing/terraform"
-	"github.com/hashicorp/terraform-provider-aws/internal/acctest"
-	"github.com/hashicorp/terraform-provider-aws/internal/conns"
-	"github.com/hashicorp/terraform-provider-aws/internal/create"
-	"github.com/hashicorp/terraform-provider-aws/internal/errs"
+	"github.com/hashicorp/terraform-provider-aws/external/acctest"
+	"github.com/hashicorp/terraform-provider-aws/external/conns"
+	"github.com/hashicorp/terraform-provider-aws/external/create"
+	"github.com/hashicorp/terraform-provider-aws/external/errs"
 	"github.com/hashicorp/terraform-provider-aws/names"
 {{- if .IncludeComments }}
 
@@ -61,7 +61,7 @@ import (
 	// in. Since it is in the "test" context, it must import the package to use
 	// any normal context constants, variables, or functions.
 {{- end }}
-	tf{{ .ServicePackage }} "github.com/hashicorp/terraform-provider-aws/internal/service/{{ .ServicePackage }}"
+	tf{{ .ServicePackage }} "github.com/hashicorp/terraform-provider-aws/external/service/{{ .ServicePackage }}"
 )
 {{ if .IncludeComments }}
 // TIP: File Structure. The basic outline for all test files should be as

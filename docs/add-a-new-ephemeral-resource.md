@@ -42,7 +42,7 @@ import (
 	"context"
 	
 	"github.com/hashicorp/terraform-plugin-framework/ephemeral"
-	"github.com/hashicorp/terraform-provider-aws/internal/framework"
+	"github.com/hashicorp/terraform-provider-aws/external/framework"
 )
 
 // @EphemeralResource("aws_something_example", name="Example")

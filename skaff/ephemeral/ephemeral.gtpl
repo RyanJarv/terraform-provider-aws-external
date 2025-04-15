@@ -44,10 +44,10 @@ import (
 	"github.com/hashicorp/terraform-plugin-framework/ephemeral"
 	"github.com/hashicorp/terraform-plugin-framework/ephemeral/schema"
 	"github.com/hashicorp/terraform-plugin-framework/types"
-	"github.com/hashicorp/terraform-provider-aws/internal/create"
-	"github.com/hashicorp/terraform-provider-aws/internal/framework"
-	"github.com/hashicorp/terraform-provider-aws/internal/framework/flex"
-	fwtypes "github.com/hashicorp/terraform-provider-aws/internal/framework/types"
+	"github.com/hashicorp/terraform-provider-aws/external/create"
+	"github.com/hashicorp/terraform-provider-aws/external/framework"
+	"github.com/hashicorp/terraform-provider-aws/external/framework/flex"
+	fwtypes "github.com/hashicorp/terraform-provider-aws/external/framework/types"
 	"github.com/hashicorp/terraform-provider-aws/names"
 )
 {{ if .IncludeComments }}

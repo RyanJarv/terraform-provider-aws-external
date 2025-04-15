@@ -50,16 +50,16 @@ import (
 	sdkacctest "github.com/hashicorp/terraform-plugin-testing/helper/acctest"
 	"github.com/hashicorp/terraform-plugin-testing/helper/resource"
 	"github.com/hashicorp/terraform-plugin-testing/terraform"
-	"github.com/hashicorp/terraform-provider-aws/internal/acctest"
-	"github.com/hashicorp/terraform-provider-aws/internal/conns"
-	"github.com/hashicorp/terraform-provider-aws/internal/create"
+	"github.com/hashicorp/terraform-provider-aws/external/acctest"
+	"github.com/hashicorp/terraform-provider-aws/external/conns"
+	"github.com/hashicorp/terraform-provider-aws/external/create"
 {{- if .IncludeComments }}
 
 	// TIP: You will often need to import the package that this test file lives
     // in. Since it is in the "test" context, it must import the package to use
     // any normal context constants, variables, or functions.
 {{- end }}
-	tf{{ .ServicePackage }} "github.com/hashicorp/terraform-provider-aws/internal/service/{{ .ServicePackage }}"
+	tf{{ .ServicePackage }} "github.com/hashicorp/terraform-provider-aws/external/service/{{ .ServicePackage }}"
 	"github.com/hashicorp/terraform-provider-aws/names"
 )
 {{ if .IncludeComments }}

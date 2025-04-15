@@ -44,7 +44,7 @@ Resources use a self-registration process that adds them to the provider using t
 
     import (
         "github.com/hashicorp/terraform-plugin-framework/resource"
-        "github.com/hashicorp/terraform-provider-aws/internal/framework"
+        "github.com/hashicorp/terraform-provider-aws/external/framework"
     )
 
     // @FrameworkResource("aws_something_example", name="Example")

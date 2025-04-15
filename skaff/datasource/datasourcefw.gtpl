@@ -46,12 +46,12 @@ import (
 	"github.com/hashicorp/terraform-plugin-framework/datasource"
 	"github.com/hashicorp/terraform-plugin-framework/datasource/schema"
 	"github.com/hashicorp/terraform-plugin-framework/types"
-	"github.com/hashicorp/terraform-provider-aws/internal/create"
-	"github.com/hashicorp/terraform-provider-aws/internal/framework"
-	"github.com/hashicorp/terraform-provider-aws/internal/framework/flex"
-	fwtypes "github.com/hashicorp/terraform-provider-aws/internal/framework/types"
+	"github.com/hashicorp/terraform-provider-aws/external/create"
+	"github.com/hashicorp/terraform-provider-aws/external/framework"
+	"github.com/hashicorp/terraform-provider-aws/external/framework/flex"
+	fwtypes "github.com/hashicorp/terraform-provider-aws/external/framework/types"
 {{- if .IncludeTags }}
-	tftags "github.com/hashicorp/terraform-provider-aws/internal/tags"
+	tftags "github.com/hashicorp/terraform-provider-aws/external/tags"
 {{- end }}
 	"github.com/hashicorp/terraform-provider-aws/names"
 )
