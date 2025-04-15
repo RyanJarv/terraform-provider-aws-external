@@ -2,7 +2,7 @@
 
 Adding a tag resource, similar to the `aws_ecs_tag` resource, has its own implementation procedure since the resource code and initial acceptance testing functions are automatically generated. The rest of the resource acceptance testing and resource documentation must still be manually created.
 
-- In `internal/generate`: Ensure the service is supported by all generators. Run `make gen` after any modifications.
+- In `external/generate`: Ensure the service is supported by all generators. Run `make gen` after any modifications.
 - In `internal/service/{service}/generate.go`: Add the new `//go:generate` call with the correct generator directives. Run `make gen` after any modifications.
 - In `internal/provider/provider.go`: Add the new resource.
 - Run `make test` and ensure there are no failures.

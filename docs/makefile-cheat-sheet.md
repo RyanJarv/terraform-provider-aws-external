@@ -58,14 +58,14 @@ Variables are often defined before the `make` call on the same line, such as `MY
 * `K` - (Default: _None_) Name of the service package you want to use, such as `ec2`, `iam`, or `lambda`, limiting Go processing to that package and dependencies. Equivalent to `PKG` variable. Assigns values to `PKG_NAME`, `SVC_DIR`, and `TEST` overridding any values set.
 * `P` - (Default: `20`) Number of concurrent acceptance tests to run. Assigns a value to `ACCTEST_PARALLELISM` overridding any value set.
 * `PKG` - (Default: _None_) Name of the service package you want to use, such as `ec2`, `iam`, or `lambda`, limiting Go processing to that package and dependencies. Equivalent to `K` variable. Assigns values to `PKG_NAME`, `SVC_DIR`, and `TEST` overridding any values set.
-* `PKG_NAME` - (Default: `internal`) Subdirectory (Go package) to use as the basis for Go processing. Overridden if `PKG` or `K` is set.
+* `PKG_NAME` - (Default: `external`) Subdirectory (Go package) to use as the basis for Go processing. Overridden if `PKG` or `K` is set.
 * `RUNARGS` - (Default: _None_) Raw arguments passed to Go when running acceptance tests. For example, `RUNARGS=-run=TestMyTest`. Overridden if `TESTS` or `T` is set.
 * `SEMGREP_ARGS` - (Default: `--error`) Semgrep arguments. See the [Semgrep reference](https://semgrep.dev/docs/cli-reference#semgrep-scan-command-options).
 * `SEMGREP_ENABLE_VERSION_CHECK` - (Default: `false`) Whether to check Semgrep servers to verify you are running the latest Semgrep version.
 * `SEMGREP_SEND_METRICS` - (Default: `off`) When Semgrep usage metrics are sent to Semgrep.
 * `SEMGREP_TIMEOUT` - (Default: `900`) Maximum time to spend running a rule on a single file, in seconds.
-* `SVC_DIR` - (Default: `./internal/service`) Directory to as the base for recursive processing. Overridden if `PKG` or `K` is set.
-* `SWEEP_DIR` - (Default: `./internal/sweep`) Location of the sweep directory.
+* `SVC_DIR` - (Default: `./external/service`) Directory to as the base for recursive processing. Overridden if `PKG` or `K` is set.
+* `SWEEP_DIR` - (Default: `./external/sweep`) Location of the sweep directory.
 * `SWEEP` - (Default: `us-west-2,us-east-1,us-east-2,us-west-1`) Comma-separated list of AWS regions to sweep.
 * `SWEEP_TIMEOUT` - (Default: `360m`) Time Go will spend sweeping resources before panicking.
 * `SWEEPARGS` - (Default: _None_) Raw arguments that define what to sweep, including dependencies. Similar to `SWEEPERS`. For example, `SWEEPARGS=-sweep-run=aws_example_thing`.

@@ -209,7 +209,7 @@ jobs:
 
       - name: Pre-Check sweeper binary
         run: |
-          go test -c -o ./sweeper-bin ./internal/sweep/
+          go test -c -o ./sweeper-bin ./external/sweep/
           count=$(strings ./sweeper-bin | \
             grep --count --extended-regexp 'internal/service/[a-zA-Z0-9]+\.sweep[a-zA-Z0-9]+$')
           [ $count -gt 0 ] || \
@@ -309,7 +309,7 @@ jobs:
       - uses: avto-dev/markdown-lint@04d43ee9191307b50935a753da3b775ab695eceb # v1.5.0
         with:
           args: "."
-          ignore: "./docs ./website/docs ./CHANGELOG.md ./internal/service/cloudformation/test-fixtures/examplecompany-exampleservice-exampleresource/docs"
+          ignore: "./docs ./website/docs ./CHANGELOG.md ./external/service/cloudformation/test-fixtures/examplecompany-exampleservice-exampleresource/docs"
 
   misspell:
     runs-on: ubuntu-latest

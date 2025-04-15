@@ -11,7 +11,7 @@ rules:
     message: Use the string literal "0" for the constant `acctest.Ct0` in test files
     paths:
       include:
-        - "internal/service/**/*_test.go"
+        - "external/service/**/*_test.go"
     pattern: "acctest.Ct0"
     fix: '"0"'
     severity: ERROR
@@ -23,7 +23,7 @@ rules:
     message: Use the string literal "1" for the constant `acctest.Ct1` in test files
     paths:
       include:
-        - "internal/service/**/*_test.go"
+        - "external/service/**/*_test.go"
     pattern: "acctest.Ct1"
     fix: '"1"'
     severity: ERROR
@@ -35,7 +35,7 @@ rules:
     message: Use the string literal "2" for the constant `acctest.Ct2` in test files
     paths:
       include:
-        - "internal/service/**/*_test.go"
+        - "external/service/**/*_test.go"
     pattern: "acctest.Ct2"
     fix: '"2"'
     severity: ERROR
@@ -47,7 +47,7 @@ rules:
     message: Use the string literal "3" for the constant `acctest.Ct3` in test files
     paths:
       include:
-        - "internal/service/**/*_test.go"
+        - "external/service/**/*_test.go"
     pattern: "acctest.Ct3"
     fix: '"3"'
     severity: ERROR
@@ -59,7 +59,7 @@ rules:
     message: Use the string literal "4" for the constant `acctest.Ct4` in test files
     paths:
       include:
-        - "internal/service/**/*_test.go"
+        - "external/service/**/*_test.go"
     pattern: "acctest.Ct4"
     fix: '"4"'
     severity: ERROR
@@ -71,7 +71,7 @@ rules:
     message: Use the string literal "10" for the constant `acctest.Ct10` in test files
     paths:
       include:
-        - "internal/service/**/*_test.go"
+        - "external/service/**/*_test.go"
     pattern: "acctest.Ct10"
     fix: '"10"'
     severity: ERROR

@@ -64,7 +64,7 @@ class Service(name: String, spec: ServiceSpec) {
                 packageName = spec.splitPackageRealPackage
             }
 
-            val serviceDir = "./internal/service/$packageName"
+            val serviceDir = "./external/service/$packageName"
             steps {
                 ConfigureGoEnv()
                 script {

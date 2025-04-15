@@ -53,7 +53,7 @@ The Terraform AWS Provider's requests to AWS service APIs happen on top of Hyper
     - Triggering automatic request retries based on default and custom logic.
 - The Terraform resource receives the response, including any output and errors, from the AWS Go SDK.
 
-In cases where custom operation handling is configured for a specific service client, the changes can typically be found in `internal/service/{service-name}/service_package.go`.
+In cases where custom operation handling is configured for a specific service client, the changes can typically be found in `internal/external/{service-name}/service_package.go`.
 
 ### Default AWS Go SDK Retries
 
@@ -75,7 +75,7 @@ The AWS Go SDK provides hooks for injecting custom logic into service client han
 We prefer this handling in situations where contributors would need to apply the retry behavior to many resources.
 For example, in cases where the AWS service API does not mark an error code as automatically retriable.
 The AWS Provider includes other retry-changing behaviors using this method.
-When custom service client configurations are applied, these will be defined in `internal/service/{service-name}/service_package.go`.
+When custom service client configurations are applied, these will be defined in `internal/external/{service-name}/service_package.go`.
 
 With V2 of the AWS Go SDK, the retrier is extended directly in client construction.
 
@@ -133,7 +133,7 @@ const (
 ```
 
 ```go
-// internal/service/{service}/{thing}.go
+// external/{service}/{thing}.go
 
 // ... Create, Read, Update, or Delete function ...
 	err := retry.RetryContext(ctx, ThingOperationTimeout, func() *retry.RetryError {
@@ -179,14 +179,14 @@ The last operation can receive varied API errors ranging from:
 - IAM Role being reported as not having permissions for the other service to use it (assume role permissions)
 - IAM Role being reported as not having sufficient permissions (inline or attached role permissions)
 
-Each AWS service API (and sometimes even operations within the same API) varies in the implementation of these errors. To handle them, it is recommended to use the [Operation Specific Error Retries](#operation-specific-error-retries) pattern. The Terraform AWS Provider implements a standard timeout constant of two minutes in the `internal/service/iam` package which should be used for all retry timeouts associated with IAM errors. This timeout was derived from years of Terraform operational experience with all AWS APIs.
+Each AWS service API (and sometimes even operations within the same API) varies in the implementation of these errors. To handle them, it is recommended to use the [Operation Specific Error Retries](#operation-specific-error-retries) pattern. The Terraform AWS Provider implements a standard timeout constant of two minutes in the `external/iam` package which should be used for all retry timeouts associated with IAM errors. This timeout was derived from years of Terraform operational experience with all AWS APIs.
 
 ```go
-// internal/service/{service}/{thing}.go
+// external/{service}/{thing}.go
 
 import (
 	// ... other imports ...
-	tfiam "github.com/hashicorp/terraform-provider-aws/internal/service/iam"
+	tfiam "github.com/hashicorp/terraform-provider-aws/external/iam"
 )
 
 // ... Create and typically Update function ...
@@ -222,11 +222,11 @@ Some remote system operations run asynchronously as detailed in the [Asynchronou
 The below code example highlights this situation for a resource creation that also exhibited IAM eventual consistency.
 
 ```go
-// internal/service/{service}/{thing}.go
+// external/{service}/{thing}.go
 
 import (
 	// ... other imports ...
-	tfiam "github.com/hashicorp/terraform-provider-aws/internal/service/iam"
+	tfiam "github.com/hashicorp/terraform-provider-aws/external/iam"
 )
 
 // ... Create function ...
@@ -299,7 +299,7 @@ const (
 
 === "Terraform Plugin Framework (Preferred)"
     ```go
-    // internal/service/{service}/{thing}.go
+    // external/{service}/{thing}.go
 
     func (r *resourceThing) Create(ctx context.Context, req resource.CreateRequest, resp *resource.CreateResponse) {
     	conn := meta.(*AWSClient).ExampleClient()
@@ -353,7 +353,7 @@ const (
 
 === "Terraform Plugin SDK V2"
     ```go
-    // internal/service/{service}/{thing}.go
+    // external/{service}/{thing}.go
 
     func ExampleThingCreate(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
 		var diags diag.Diagnostics
@@ -525,7 +525,7 @@ If it is necessary to customize the timeouts and polling, we generally prefer us
 ### Resource Lifecycle Waiters
 
 Most of the codebase uses `retry.StateChangeConf` and `retry.StateRefreshFunc` handlers for tracking either component-level status fields or explicit tracking identifiers.
-These should be placed in the `internal/service/{SERVICE}` package and split into separate functions. For example:
+These should be placed in the `external/{SERVICE}` package and split into separate functions. For example:
 
 ```go
 // ThingStatus fetches the Thing and its Status

@@ -91,7 +91,7 @@ PKG=rds make acctest-lint
 The command above is equivalent to using `SVC_DIR` with the full relative path:
 
 ```console
-SVC_DIR=./internal/service/rds make acctest-lint
+SVC_DIR=./external/service/rds make acctest-lint
 ```
 
 #### `terrafmt`

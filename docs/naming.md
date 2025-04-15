@@ -4,7 +4,7 @@
 
 In the AWS Provider, a service identifier should consistently identify an AWS service from code to documentation to provider used by a practitioner. Prominent places you will see service identifiers:
 
-* The package name (e.g., `internal/service/<serviceidentifier>`)
+* The package name (e.g., `external/service/<serviceidentifier>`)
 * In resource and data source names (e.g., `aws_<serviceidentifier>_thing`)
 * Documentation file names (e.g., `website/docs/r/<serviceidentifier>_thing`)
 
@@ -35,7 +35,7 @@ Package names are not seen or used by practitioners. However, they should still 
 
 ### Rule
 
-1. For service packages (i.e., packages under `internal/service`), use the AWS Provider [service identifier](#service-identifier) as the package name.
+1. For service packages (i.e., packages under `external/service`), use the AWS Provider [service identifier](#service-identifier) as the package name.
 2. For other packages, use a short name for the package. Common Go lengths are 3-9 characters.
 3. Use a descriptive name. The name should capture the key purpose of the package.
 4. Use lowercase letters and do not include any underscores (`_`).
@@ -53,8 +53,8 @@ When creating a new resource or data source, it is important to get names right.
     * `aws` prefix
     * [Service identifier](#service-identifier) (service identifiers do not include underscores), all lowercase (e.g., `imagebuilder`)
     * Resource (or data source) name in snake case (spaces replaced with underscores, if any), all lowercase (e.g., `image_pipeline`)
-3. Name the main resource function `Resource<ResourceName>()`, with the resource name in [Mixed Caps](#mixed-caps). Do not include the service name or identifier. For example, define `ResourceImagePipeline()` in a file called `internal/service/imagebuilder/image_pipeline.go`.
-4. Similarly, name the main data source function `DataSource<ResourceName>()`, with the data source name in [Mixed Caps](#mixed-caps). Do not include the service name or identifier. For example, define `DataSourceImagePipeline()` in a file called `internal/service/imagebuilder/image_pipeline_data_source.go`.
+3. Name the main resource function `Resource<ResourceName>()`, with the resource name in [Mixed Caps](#mixed-caps). Do not include the service name or identifier. For example, define `ResourceImagePipeline()` in a file called `external/service/imagebuilder/image_pipeline.go`.
+4. Similarly, name the main data source function `DataSource<ResourceName>()`, with the data source name in [Mixed Caps](#mixed-caps). Do not include the service name or identifier. For example, define `DataSourceImagePipeline()` in a file called `external/service/imagebuilder/image_pipeline_data_source.go`.
 
 ## Files
 
@@ -72,7 +72,7 @@ A correct example is `accessanalyzer_analyzer.html.markdown`. An incorrect examp
 
 ### Go File Rule
 
-1. Resource and data source files are in the `internal/service/<service>` directory.
+1. Resource and data source files are in the `external/service/<service>` directory.
 2. Do not include the service as part of the file name.
 3. Data sources should include `_data_source` after the data source name (e.g., `application_data_source.go`).
 4. Put unit and acceptance tests in a file ending with `_test.go` (e.g., `custom_domain_association_test.go`).
@@ -103,7 +103,7 @@ In general, follow Go best practices for good function naming. This rule is for 
 
 1. Only export functions (capitalize) when necessary, i.e., when the function is used outside the current package, including in the `_test` (`.test`) package.
 2. Use [MixedCaps](#mixed-caps) (exported) or [mixedCaps](#mixed-caps) (not exported). Do not use underscores for multiwords.
-3. Do not include the service name in the function name. (If functions are used outside the current package, the import package clarifies a function's origin. For example, the EC2 function `FindVPCEndpointByID()` is used outside the `internal/service/ec2` package but where it is used, the call is `tfec2.FindVPCEndpointByID()`.)
+3. Do not include the service name in the function name. (If functions are used outside the current package, the import package clarifies a function's origin. For example, the EC2 function `FindVPCEndpointByID()` is used outside the `external/service/ec2` package but where it is used, the call is `tfec2.FindVPCEndpointByID()`.)
 4. For CRUD functions for resources, use this format: `resource<ResourceName><CRUDFunction>`. For example, `resourceImageRecipeUpdate()`, `resourceBaiduChannelRead()`.
 5. For data sources, for Read functions, use this format: `dataSource<DataSourceName>Read`. For example, `dataSourceBrokerRead()`, `dataSourceEngineVersionRead()`.
 6. To improve readability, consider including the resource name in helper function names that pertain only to that resource. For example, for an expander function for an "App" resource and a "Campaign Hook" expander, use `expandAppCampaignHook()`.

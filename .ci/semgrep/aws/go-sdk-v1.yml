@@ -4,10 +4,10 @@ rules:
     message: Do not use AWS SDK for Go v1
     paths:
       include:
-        - internal/
+        - external/
       exclude:
-        - "internal/service/simpledb/*.go"
-        - "internal/conns/awsclient.go"
+        - "external/service/simpledb/*.go"
+        - "external/conns/awsclient.go"
     patterns:
       - pattern: |
           import ("$X")
@@ -22,10 +22,10 @@ rules:
     message: Do not use aws-sdk-go-base AWS SDK for Go v1 shims
     paths:
       include:
-        - internal/
+        - external/
       exclude:
-        - "internal/service/simpledb/*.go"
-        - "internal/conns/config.go"
+        - "external/service/simpledb/*.go"
+        - "external/conns/config.go"
     patterns:
       - pattern: |
           import ("$X")

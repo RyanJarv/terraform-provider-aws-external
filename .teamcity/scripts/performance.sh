@@ -32,7 +32,7 @@ fi
 function vpctest {
     local suffix=$1
     TF_ACC=1 go test \
-        ./internal/service/ec2/... \
+        ./external/service/ec2/... \
         -v \
         -run='^TestAccVPC_basic$' \
         -cpuprofile cpu"${suffix}".prof \
@@ -44,7 +44,7 @@ function vpctest {
 function ssmtest {
     local suffix=$1
     TF_ACC=1 go test \
-        ./internal/service/ssm/... \
+        ./external/service/ssm/... \
         -v \
         -run='^TestAccSSMParameter_basic$' \
         -cpuprofile cpu"${suffix}".prof \

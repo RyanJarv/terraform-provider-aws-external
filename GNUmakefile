@@ -5,14 +5,14 @@ ACCTEST_TIMEOUT              ?= 360m
 BASE_REF                     ?= main
 GO_VER                       ?= $(shell echo go`cat .go-version | xargs`)
 P                            ?= 20
-PKG_NAME                     ?= internal
+PKG_NAME                     ?= external
 SEMGREP_ARGS                 ?= --error
 SEMGREP_ENABLE_VERSION_CHECK ?= false
 SEMGREP_SEND_METRICS         ?= off
 SEMGREP_TIMEOUT              ?= 900 # 15 minutes, some runs go over 5 minutes
-SVC_DIR                      ?= ./internal/service
+SVC_DIR                      ?= ./external/service
 SWEEP                        ?= us-west-2,us-east-1,us-east-2,us-west-1
-SWEEP_DIR                    ?= ./internal/sweep
+SWEEP_DIR                    ?= ./external/sweep
 SWEEP_TIMEOUT                ?= 360m
 TEST                         ?= ./...
 TEST_COUNT                   ?= 1
@@ -24,14 +24,14 @@ TEST_COUNT                   ?= 1
 #    - docs/continuous-integration.md
 
 ifneq ($(origin PKG), undefined)
-	PKG_NAME = internal/service/$(PKG)
-	SVC_DIR = ./internal/service/$(PKG)
+	PKG_NAME = external/service/$(PKG)
+	SVC_DIR = ./external/service/$(PKG)
 	TEST = ./$(PKG_NAME)/...
 endif
 
 ifneq ($(origin K), undefined)
-	PKG_NAME = internal/service/$(K)
-	SVC_DIR = ./internal/service/$(PKG)
+	PKG_NAME = external/service/$(K)
+	SVC_DIR = ./external/service/$(PKG)
 	TEST = ./$(PKG_NAME)/...
 endif
 
@@ -51,45 +51,45 @@ ifeq ($(origin CURDIR), undefined)
 	CURDIR = $(PWD)
 endif
 
-ifeq ($(PKG_NAME), internal/service/ebs)
-	PKG_NAME = internal/service/ec2
-	SVC_DIR = ./internal/service/ec2
+ifeq ($(PKG_NAME), external/service/ebs)
+	PKG_NAME = external/service/ec2
+	SVC_DIR = ./external/service/ec2
 	TEST = ./$(PKG_NAME)/...
 endif
 
-ifeq ($(PKG_NAME), internal/service/ipam)
-	PKG_NAME = internal/service/ec2
-	SVC_DIR = ./internal/service/ec2
+ifeq ($(PKG_NAME), external/service/ipam)
+	PKG_NAME = external/service/ec2
+	SVC_DIR = ./external/service/ec2
 	TEST = ./$(PKG_NAME)/...
 endif
 
-ifeq ($(PKG_NAME), internal/service/transitgateway)
-	PKG_NAME = internal/service/ec2
-	SVC_DIR = ./internal/service/ec2
+ifeq ($(PKG_NAME), external/service/transitgateway)
+	PKG_NAME = external/service/ec2
+	SVC_DIR = ./external/service/ec2
 	TEST = ./$(PKG_NAME)/...
 endif
 
-ifeq ($(PKG_NAME), internal/service/vpc)
-	PKG_NAME = internal/service/ec2
-	SVC_DIR = ./internal/service/ec2
+ifeq ($(PKG_NAME), external/service/vpc)
+	PKG_NAME = external/service/ec2
+	SVC_DIR = ./external/service/ec2
 	TEST = ./$(PKG_NAME)/...
 endif
 
-ifeq ($(PKG_NAME), internal/service/vpnclient)
-	PKG_NAME = internal/service/ec2
-	SVC_DIR = ./internal/service/ec2
+ifeq ($(PKG_NAME), external/service/vpnclient)
+	PKG_NAME = external/service/ec2
+	SVC_DIR = ./external/service/ec2
 	TEST = ./$(PKG_NAME)/...
 endif
 
-ifeq ($(PKG_NAME), internal/service/vpnsite)
-	PKG_NAME = internal/service/ec2
-	SVC_DIR = ./internal/service/ec2
+ifeq ($(PKG_NAME), external/service/vpnsite)
+	PKG_NAME = external/service/ec2
+	SVC_DIR = ./external/service/ec2
 	TEST = ./$(PKG_NAME)/...
 endif
 
-ifeq ($(PKG_NAME), internal/service/wavelength)
-	PKG_NAME = internal/service/ec2
-	SVC_DIR = ./internal/service/ec2
+ifeq ($(PKG_NAME), external/service/wavelength)
+	PKG_NAME = external/service/ec2
+	SVC_DIR = ./external/service/ec2
 	TEST = ./$(PKG_NAME)/...
 endif
 
@@ -234,7 +234,7 @@ fix-constants: semgrep-constants fmt ## Use Semgrep to fix constants
 
 fix-imports: ## Fixing source code imports with goimports
 	@echo "make: Fixing source code imports with goimports..."
-	@find internal -name "*.go" -type f -exec goimports -w {} \;
+	@find external -name "*.go" -type f -exec goimports -w {} \;
 
 fmt: ## Fix Go source formatting
 	@echo "make: Fixing source code with gofmt..."
@@ -251,10 +251,10 @@ fumpt: ## Run gofumpt
 
 gen: prereq-go ## Run all Go generators
 	@echo "make: Running Go generators..."
-	$(GO_VER) generate ./...
+	$(GO_VER) generate -v ./...
 	# Generate service package lists last as they may depend on output of earlier generators.
-	$(GO_VER) generate ./internal/provider
-	$(GO_VER) generate ./internal/sweep
+	$(GO_VER) generate ./external/provider
+	$(GO_VER) generate ./external/sweep
 
 gen-check: gen ## [CI] Provider Checks / go_generate
 	@echo "make: Provider Checks / go_generate..."
@@ -277,7 +277,7 @@ go-build: ## [CI] Provider Checks / go-build
 
 go-misspell: ## [CI] Provider Checks / misspell
 	@echo "make: Provider Checks / misspell..."
-	@misspell -error -source auto -i "littel,ceasar" internal/
+	@misspell -error -source auto -i "littel,ceasar" external/
 
 golangci-lint: golangci-lint1 golangci-lint2 golangci-lint3 golangci-lint4 golangci-lint5 ## [CI] All golangci-lint Checks
 
@@ -370,7 +370,7 @@ provider-lint: ## [CI] ProviderLint Checks / providerlint
 		-XR005=false \
 		-XS001=false \
 		-XS002=false \
-		$(SVC_DIR)/... ./internal/provider/...
+		$(SVC_DIR)/... ./external/provider/...
 
 provider-markdown-lint: ## [CI] Provider Check / markdown-lint
 	@echo "make: Provider Check / markdown-lint..."
@@ -381,7 +381,7 @@ provider-markdown-lint: ## [CI] Provider Check / markdown-lint
 		--ignore markdown/docs \
 		--ignore markdown/website/docs \
 		--ignore markdown/CHANGELOG.md \
-		--ignore markdown/internal/service/cloudformation/test-fixtures/examplecompany-exampleservice-exampleresource/docs \
+		--ignore markdown/external/service/cloudformation/test-fixtures/examplecompany-exampleservice-exampleresource/docs \
 		/markdown/**/*.md
 
 sane: prereq-go ## Run sane check
@@ -389,23 +389,23 @@ sane: prereq-go ## Run sane check
 	@echo "make: Like 'sanity' except full output and stops soon after 1st error"
 	@echo "make: NOTE: NOT an exhaustive set of tests! Finds big problems only."
 	@TF_ACC=1 $(GO_VER) test \
-		./internal/service/iam/... \
+		./external/service/iam/... \
 		-v -count $(TEST_COUNT) -parallel $(ACCTEST_PARALLELISM) -run='^TestAccIAMRole_basic$$|^TestAccIAMRole_namePrefix$$|^TestAccIAMRole_disappears$$|^TestAccIAMRole_InlinePolicy_basic$$|^TestAccIAMPolicyDocumentDataSource_basic$$|^TestAccIAMPolicyDocumentDataSource_sourceConflicting$$|^TestAccIAMPolicyDocumentDataSource_sourceJSONValidJSON$$|^TestAccIAMRolePolicyAttachment_basic$$|^TestAccIAMRolePolicyAttachment_disappears$$|^TestAccIAMRolePolicyAttachment_Disappears_role$$|^TestAccIAMPolicy_basic$$|^TestAccIAMPolicy_policy$$|^TestAccIAMPolicy_tags$$|^TestAccIAMRolePolicy_basic$$|^TestAccIAMRolePolicy_unknownsInPolicy$$|^TestAccIAMInstanceProfile_basic$$|^TestAccIAMInstanceProfile_tags$$' -timeout $(ACCTEST_TIMEOUT) -vet=off
 	@TF_ACC=1 $(GO_VER) test \
-		./internal/service/logs/... \
-		./internal/service/ec2/... \
-		./internal/service/ecs/... \
-		./internal/service/elbv2/... \
-		./internal/service/kms/... \
+		./external/service/logs/... \
+		./external/service/ec2/... \
+		./external/service/ecs/... \
+		./external/service/elbv2/... \
+		./external/service/kms/... \
 		-v -count $(TEST_COUNT) -parallel $(ACCTEST_PARALLELISM) -run='^TestAccVPCSecurityGroup_basic$$|^TestAccVPCSecurityGroup_egressMode$$|^TestAccVPCSecurityGroup_vpcAllEgress$$|^TestAccVPCSecurityGroupRule_race$$|^TestAccVPCSecurityGroupRule_protocolChange$$|^TestAccVPCDataSource_basic$$|^TestAccVPCSubnet_basic$$|^TestAccVPC_tenancy$$|^TestAccVPCRouteTableAssociation_Subnet_basic$$|^TestAccVPCRouteTable_basic$$|^TestAccLogsGroup_basic$$|^TestAccLogsGroup_multiple$$|^TestAccKMSKey_basic$$|^TestAccELBV2TargetGroup_basic$$|^TestAccECSTaskDefinition_basic$$|^TestAccECSService_basic$$' -timeout $(ACCTEST_TIMEOUT) -vet=off
 	@TF_ACC=1 $(GO_VER) test \
-		./internal/service/lambda/... \
-		./internal/service/meta/... \
-		./internal/service/route53/... \
-		./internal/service/s3/... \
-		./internal/service/ssm/... \
-		./internal/service/secretsmanager/... \
-		./internal/service/sts/... \
+		./external/service/lambda/... \
+		./external/service/meta/... \
+		./external/service/route53/... \
+		./external/service/s3/... \
+		./external/service/ssm/... \
+		./external/service/secretsmanager/... \
+		./external/service/sts/... \
 		-v -count $(TEST_COUNT) -parallel $(ACCTEST_PARALLELISM) -run='^TestAccSTSCallerIdentityDataSource_basic$$|^TestAccMetaRegionDataSource_basic$$|^TestAccMetaRegionDataSource_endpoint$$|^TestAccMetaPartitionDataSource_basic$$|^TestAccS3Bucket_Basic_basic$$|^TestAccS3Bucket_Security_corsUpdate$$|^TestAccS3BucketPublicAccessBlock_basic$$|^TestAccS3BucketPolicy_basic$$|^TestAccS3BucketACL_updateACL$$|^TestAccS3Object_basic$$|^TestAccRoute53Record_basic$$|^TestAccRoute53Record_Latency_basic$$|^TestAccRoute53ZoneDataSource_name$$|^TestAccLambdaFunction_basic$$|^TestAccLambdaPermission_basic$$|^TestAccSecretsManagerSecret_basic$$|^TestAccSSMParameterEphemeral_basic$$' -timeout $(ACCTEST_TIMEOUT) -vet=off
 
 sanity: prereq-go ## Run sanity check (failures allowed)
@@ -413,29 +413,29 @@ sanity: prereq-go ## Run sanity check (failures allowed)
 	@echo "make: Like 'sane' but less output and runs all tests despite most errors"
 	@echo "make: NOTE: NOT an exhaustive set of tests! Finds big problems only."
 	@iam=`TF_ACC=1 $(GO_VER) test \
-		./internal/service/iam/... \
+		./external/service/iam/... \
 		-v -count $(TEST_COUNT) -parallel $(ACCTEST_PARALLELISM) -run='^TestAccIAMRole_basic$$|^TestAccIAMRole_namePrefix$$|^TestAccIAMRole_disappears$$|^TestAccIAMRole_InlinePolicy_basic$$|^TestAccIAMPolicyDocumentDataSource_basic$$|^TestAccIAMPolicyDocumentDataSource_sourceConflicting$$|^TestAccIAMPolicyDocumentDataSource_sourceJSONValidJSON$$|^TestAccIAMRolePolicyAttachment_basic$$|^TestAccIAMRolePolicyAttachment_disappears$$|^TestAccIAMRolePolicyAttachment_Disappears_role$$|^TestAccIAMPolicy_basic$$|^TestAccIAMPolicy_policy$$|^TestAccIAMPolicy_tags$$|^TestAccIAMRolePolicy_basic$$|^TestAccIAMRolePolicy_unknownsInPolicy$$|^TestAccIAMInstanceProfile_basic$$|^TestAccIAMInstanceProfile_tags$$' -timeout $(ACCTEST_TIMEOUT) -vet=off || true` ; \
 	fails1=`echo -n $$iam | grep -Fo FAIL: | wc -l | xargs` ; \
 	passes=$$(( 17-$$fails1 )) ; \
 	echo "17 of 48 complete: $$passes passed, $$fails1 failed" ; \
 	logs=`TF_ACC=1 $(GO_VER) test \
-		./internal/service/logs/... \
-		./internal/service/ec2/... \
-		./internal/service/ecs/... \
-		./internal/service/elbv2/... \
-		./internal/service/kms/... \
+		./external/service/logs/... \
+		./external/service/ec2/... \
+		./external/service/ecs/... \
+		./external/service/elbv2/... \
+		./external/service/kms/... \
 		-v -count $(TEST_COUNT) -parallel $(ACCTEST_PARALLELISM) -run='^TestAccVPCSecurityGroup_basic$$|^TestAccVPCSecurityGroup_egressMode$$|^TestAccVPCSecurityGroup_vpcAllEgress$$|^TestAccVPCSecurityGroupRule_race$$|^TestAccVPCSecurityGroupRule_protocolChange$$|^TestAccVPCDataSource_basic$$|^TestAccVPCSubnet_basic$$|^TestAccVPC_tenancy$$|^TestAccVPCRouteTableAssociation_Subnet_basic$$|^TestAccVPCRouteTable_basic$$|^TestAccLogsGroup_basic$$|^TestAccLogsGroup_multiple$$|^TestAccKMSKey_basic$$|^TestAccELBV2TargetGroup_basic$$|^TestAccECSTaskDefinition_basic$$|^TestAccECSService_basic$$' -timeout $(ACCTEST_TIMEOUT) -vet=off || true` ; \
 	fails2=`echo -n $$logs | grep -Fo FAIL: | wc -l | xargs` ; \
 	tot_fails=$$(( $$fails1+$$fails2 )) ; \
 	passes=$$(( 33-$$tot_fails )) ; \
 	echo "33 of 48 complete: $$passes passed, $$tot_fails failed" ; \
 	lambda=`TF_ACC=1 $(GO_VER) test \
-		./internal/service/lambda/... \
-		./internal/service/meta/... \
-		./internal/service/route53/... \
-		./internal/service/s3/... \
-		./internal/service/secretsmanager/... \
-		./internal/service/sts/... \
+		./external/service/lambda/... \
+		./external/service/meta/... \
+		./external/service/route53/... \
+		./external/service/s3/... \
+		./external/service/secretsmanager/... \
+		./external/service/sts/... \
 		-v -count $(TEST_COUNT) -parallel $(ACCTEST_PARALLELISM) -run='^TestAccSTSCallerIdentityDataSource_basic$$|^TestAccMetaRegionDataSource_basic$$|^TestAccMetaRegionDataSource_endpoint$$|^TestAccMetaPartitionDataSource_basic$$|^TestAccS3Bucket_Basic_basic$$|^TestAccS3Bucket_Security_corsUpdate$$|^TestAccS3BucketPublicAccessBlock_basic$$|^TestAccS3BucketPolicy_basic$$|^TestAccS3BucketACL_updateACL$$|^TestAccS3Object_basic$$|^TestAccRoute53Record_basic$$|^TestAccRoute53Record_Latency_basic$$|^TestAccRoute53ZoneDataSource_name$$|^TestAccLambdaFunction_basic$$|^TestAccLambdaPermission_basic$$|^TestAccSecretsManagerSecret_basic$$|^TestAccSSMParameterEphemeral_basic$$' -timeout $(ACCTEST_TIMEOUT) -vet=off || true` ; \
 	fails3=`echo -n $$lambda | grep -Fo FAIL: | wc -l | xargs` ; \
 	tot_fails=$$(( $$fails1+$$fails2+$$fails3 )) ; \
@@ -588,9 +588,9 @@ sweeper-check: sweeper-linked sweeper-unlinked ## [CI] Provider Checks / Sweeper
 
 sweeper-linked: ## [CI] Provider Checks / Sweeper Functions Linked
 	@echo "make: Provider Checks / Sweeper Functions Linked..." ; \
-	go test -c -o ./sweeper-bin ./internal/sweep/ ; \
+	go test -c -o ./sweeper-bin ./external/sweep/ ; \
 	count=`strings ./sweeper-bin | \
-		grep --count --extended-regexp 'internal/service/[a-zA-Z0-9]+\.sweep[a-zA-Z0-9]+$$'` ; \
+		grep --count --extended-regexp 'external/service/[a-zA-Z0-9]+\.sweep[a-zA-Z0-9]+$$'` ; \
 	echo "make: sweeper-linked: found $$count, expected more than 0" ; \
 	[ $$count -gt 0 ] || \
 		(echo; echo "Expected `strings` to detect sweeper function names in sweeper binary."; exit 1)
@@ -599,7 +599,7 @@ sweeper-unlinked: go-build ## [CI] Provider Checks / Sweeper Functions Not Linke
 	@os_arch=`go env GOOS`_`go env GOARCH` ; \
 	echo "make: Provider Checks / Sweeper Functions Not Linked ($$os_arch)..." ; \
 	count=`strings "terraform-plugin-dir/registry.terraform.io/hashicorp/aws/99.99.99/$$os_arch/terraform-provider-aws" | \
-		grep --count --extended-regexp 'internal/service/[a-zA-Z0-9]+\.sweep[a-zA-Z0-9]+$$'` ; \
+		grep --count --extended-regexp 'external/service/[a-zA-Z0-9]+\.sweep[a-zA-Z0-9]+$$'` ; \
 	echo "make: sweeper-unlinked: found $$count, expected 0" ; \
 	[ $$count -eq 0 ] || \
 		(echo "Expected `strings` to detect no sweeper function names in provider binary."; exit 1)
@@ -624,7 +624,7 @@ testacc: prereq-go fmt-check ## Run acceptance tests
 		echo ""; \
 		echo "Error: Skipping example acceptance testing pattern. Update PKG and TESTS for the relevant *_test.go file."; \
 		echo ""; \
-		echo "For example if updating internal/service/acm/certificate.go, use the test names in internal/service/acm/certificate_test.go starting with TestAcc and up to the underscore:"; \
+		echo "For example if updating external/service/acm/certificate.go, use the test names in external/service/acm/certificate_test.go starting with TestAcc and up to the underscore:"; \
 		echo "make testacc TESTS=TestAccACMCertificate_ PKG=acm"; \
 		echo ""; \
 		echo "See the contributing guide for more information: https://hashicorp.github.io/terraform-provider-aws/running-and-writing-acceptance-tests"; \
@@ -654,13 +654,13 @@ testacc-tflint-dir: tflint-init ## Run tflint on Terraform directories
 	@echo "make: Acceptance Test Linting (standalone) / tflint..."
 	@# tflint always resolves config flies relative to the working directory when using --recursive
 	@tflint_config="$(PWD)/.ci/.tflint.hcl" ; \
-	tflint --config  "$$tflint_config" --chdir=./internal/service --recursive
+	tflint --config  "$$tflint_config" --chdir=./external/service --recursive
 
 testacc-tflint-dir-fix: tflint-init ## fix Terraform directory linter findings
 	@echo "make: Acceptance Test Linting (standalone) / tflint..."
 	@# tflint always resolves config flies relative to the working directory when using --recursive
 	@tflint_config="$(PWD)/.ci/.tflint.hcl" ; \
-	tflint --config  "$$tflint_config" --chdir=./internal/service --recursive --fix
+	tflint --config  "$$tflint_config" --chdir=./external/service --recursive --fix
 
 testacc-tflint-embedded: tflint-init ## Run tflint on embedded Terraform configs
 	@echo "make: Acceptance Test Linting (embedded) / tflint..."

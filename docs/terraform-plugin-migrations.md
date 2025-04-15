@@ -23,7 +23,7 @@ The following pattern is used to generate a file:  `tfsdk2fw [-resource <resourc
 Example:
 
 ```console
-tfsdk2fw -resource aws_example_resource examplepackage ResourceName internal/service/examplepackage/resource_name_fw.go
+tfsdk2fw -resource aws_example_resource examplepackage ResourceName external/examplepackage/resource_name_fw.go
 ```
 
 This command creates a separate file that exists alongside the existing SDKv2 resource. Ultimately, the new file should replace the SDKv2 resource.
@@ -34,7 +34,7 @@ When done creating the resource using the Framework run `make gen` to remove the
 
 Terraform Plugin Framework introduced `null` values, which differ from `zero` values. Since the Plugin SDKv2 marked both `null` and `zero` values as the same, it will be necessary to use the [State Upgrader](https://developer.hashicorp.com/terraform/plugin/framework/migrating/resources/state-upgrade).
 
-An example of a resource with an upgraded state, while migrating, can be found [here](https://github.com/hashicorp/terraform-provider-aws/blob/88447d09f85dc737597243b31c5d0c8e212d055b/internal/service/batch/job_queue.go#L330).
+An example of a resource with an upgraded state, while migrating, can be found [here](https://github.com/hashicorp/terraform-provider-aws/blob/88447d09f85dc737597243b31c5d0c8e212d055b/external/batch/job_queue.go#L330).
 
 ### Custom Types
 

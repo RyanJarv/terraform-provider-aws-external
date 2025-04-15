@@ -11,7 +11,7 @@ To determine if the supporting AWS API supports this functionality:
 
 Implementing server-side filtering support for Terraform AWS Provider resources requires the following, each with its own section below:
 
-- _Generated Service Filtering Code_: In the internal code generators (e.g., `internal/generate/namevaluesfilters`), implementation and customization of how a service handles filtering, which is standardized for the resources.
+- _Generated Service Filtering Code_: In the internal code generators (e.g., `external/generate/namevaluesfilters`), implementation and customization of how a service handles filtering, which is standardized for the resources.
 - _Resource Filtering Code Implementation_: In the resource's equivalent data source code (e.g., `internal/service/{servicename}/thing_data_source.go`), implementation of `filter` schema attribute, along with handling in the `Read` function.
 - _Resource Filtering Documentation Implementation_: In the resource's equivalent data source documentation (e.g., `website/docs/d/service_thing.html.markdown`), addition of `filter` argument
 
@@ -19,15 +19,15 @@ Implementing server-side filtering support for Terraform AWS Provider resources 
 
 This step is only necessary for the first implementation and may have been previously completed. If so, move on to the next section.
 
-More details about this code generation can be found in the [namevaluesfilters documentation](https://github.com/hashicorp/terraform-provider-aws/blob/main/internal/generate/namevaluesfilters/README.md).
+More details about this code generation can be found in the [namevaluesfilters documentation](https://github.com/hashicorp/terraform-provider-aws/blob/main/external/generate/namevaluesfilters/README.md).
 
-Add the AWS Go SDK service name (e.g., `rds`) to `sliceServiceNames` in `internal/generate/namevaluesfilters/generators/servicefilters/main.go`.
+Add the AWS Go SDK service name (e.g., `rds`) to `sliceServiceNames` in `external/generate/namevaluesfilters/generators/servicefilters/main.go`.
 
 - Run `make gen` (`go generate ./...`) and ensure there are no errors via `make test` (`go test ./...`)
 
 ### Resource Filter Code Implementation
 
-- In the resource's equivalent data source Go file (e.g., `internal/service/ec2/internet_gateway_data_source.go`), add the following Go import: `"github.com/hashicorp/terraform-provider-aws/internal/generate/namevaluesfilters"`
+- In the resource's equivalent data source Go file (e.g., `internal/service/ec2/internet_gateway_data_source.go`), add the following Go import: `"github.com/hashicorp/terraform-provider-aws/external/generate/namevaluesfilters"`
 - In the resource schema, add `"filter": namevaluesfilters.Schema(),`
 - Implement the logic to build the list of filters:
 

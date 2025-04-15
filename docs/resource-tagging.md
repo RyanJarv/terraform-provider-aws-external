@@ -9,7 +9,7 @@ Implementing tagging support for Terraform AWS Provider resources requires the f
 - _Generated Service Tagging Code_: Each service has a `generate.go` file where generator directives live.
   Through these directives and their flags, you can customize code generation for the service.
   You can find the code that the tagging generator generates in a `tags_gen.go` file in a service, such as `internal/service/ec2/tags_gen.go`.
-  You should generally _not_ need to edit the generator code itself (i.e., in `internal/generate/tags`).
+  You should generally _not_ need to edit the generator code itself (i.e., in `external/generate/tags`).
 - _Resource Code_: In the resource code, add the `tags` and `tags_all` schema attributes,
   along with a plan modification in the resource definition, and handling in `Create`, `Read`, and `Update` functions.
 - _Resource Acceptance Tests_: In the resource acceptance tests, add new acceptance test functions and configurations to exercise the new tagging logic.
@@ -21,7 +21,7 @@ This step is generally only necessary for the first implementation and may have 
 
 More details about this code generation,
 including fixes for potential error messages in this process,
-can be found in the [`generate` package documentation](https://github.com/hashicorp/terraform-provider-aws/tree/main/internal/generate/tags/README.md).
+can be found in the [`generate` package documentation](https://github.com/hashicorp/terraform-provider-aws/tree/main/external/generate/tags/README.md).
 
 The generator will create several types of tagging-related code.
 All services that support tagging will generate the function `keyValueTags`, which converts from service-specific structs returned by the AWS SDK into a common format used by the provider,
@@ -60,7 +60,7 @@ To indicate the additional type, include the flag `-TagType2=<struct name>`.
 For example, the Auto Scaling uses the struct `Tag` as part of resource calls, but returns the struct `TagDescription` from the `DescribeTags` API call. The flag used is `-TagType2=TagDescription`.
 
 For more details on flags for generating service keys, see the
-[documentation for the tag generator](https://github.com/hashicorp/terraform-provider-aws/tree/main/internal/generate/tags/README.md)
+[documentation for the tag generator](https://github.com/hashicorp/terraform-provider-aws/tree/main/external/generate/tags/README.md)
 
 ### Generating Standalone Tag Listing Functions
 
@@ -82,7 +82,7 @@ In some cases, it can be useful to retrieve single tags.
 Pass the flag `-GetTag` to generate a function to do so.
 
 For more details on flags for generating tag listing functions, see the
-[documentation for the tag generator](https://github.com/hashicorp/terraform-provider-aws/tree/main/internal/generate/tags/README.md)
+[documentation for the tag generator](https://github.com/hashicorp/terraform-provider-aws/tree/main/external/generate/tags/README.md)
 
 ### Generating Standalone Tag Updating Functions
 
@@ -105,7 +105,7 @@ If the API call to remove tags uses a field other than `ResourceArn` to identify
 For example, the Route 53 service uses the field `Keys`, so the flag is `-UntagInTagsElem=Keys`.
 
 For more details on flags for generating tag updating functions, see the
-[documentation for the tag generator](https://github.com/hashicorp/terraform-provider-aws/tree/main/internal/generate/tags/README.md)
+[documentation for the tag generator](https://github.com/hashicorp/terraform-provider-aws/tree/main/external/generate/tags/README.md)
 
 #### Generating Standalone Post-Creation Tag Updating Functions
 

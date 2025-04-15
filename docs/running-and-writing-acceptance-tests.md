@@ -77,13 +77,13 @@ make testacc TESTS=TestAccCloudWatchDashboard_updateName PKG=cloudwatch
 
 ```
 ==> Checking that code complies with gofmt requirements...
-TF_ACC=1 go test ./internal/service/cloudwatch/... -v -count 1 -parallel 20 -run=TestAccCloudWatchDashboard_updateName -timeout 180m
+TF_ACC=1 go test ./external/service/cloudwatch/... -v -count 1 -parallel 20 -run=TestAccCloudWatchDashboard_updateName -timeout 180m
 === RUN   TestAccCloudWatchDashboard_updateName
 === PAUSE TestAccCloudWatchDashboard_updateName
 === CONT  TestAccCloudWatchDashboard_updateName
 --- PASS: TestAccCloudWatchDashboard_updateName (25.33s)
 PASS
-ok  	github.com/hashicorp/terraform-provider-aws/internal/service/cloudwatch	25.387s
+ok  	github.com/hashicorp/terraform-provider-aws/external/service/cloudwatch	25.387s
 ```
 
 Entire resource test suites can be targeted by using the naming convention to
@@ -97,7 +97,7 @@ make testacc TESTS=TestAccCloudWatchDashboard PKG=cloudwatch
 
 ```
 ==> Checking that code complies with gofmt requirements...
-TF_ACC=1 go test ./internal/service/cloudwatch/... -v -count 1 -parallel 20 -run=TestAccCloudWatchDashboard -timeout 180m
+TF_ACC=1 go test ./external/service/cloudwatch/... -v -count 1 -parallel 20 -run=TestAccCloudWatchDashboard -timeout 180m
 === RUN   TestAccCloudWatchDashboard_basic
 === PAUSE TestAccCloudWatchDashboard_basic
 === RUN   TestAccCloudWatchDashboard_update
@@ -111,7 +111,7 @@ TF_ACC=1 go test ./internal/service/cloudwatch/... -v -count 1 -parallel 20 -run
 --- PASS: TestAccCloudWatchDashboard_updateName (26.69s)
 --- PASS: TestAccCloudWatchDashboard_update (27.72s)
 PASS
-ok  	github.com/hashicorp/terraform-provider-aws/internal/service/cloudwatch	27.783s
+ok  	github.com/hashicorp/terraform-provider-aws/external/cloudwatch	27.783s
 ```
 
 Running acceptance tests requires version 0.12.26 or higher of the Terraform CLI to be installed.
@@ -129,7 +129,7 @@ make testacc TESTS=TestAccRDSInstance_DBSubnetGroupName_ramShared PKG=rds
 ```
 
 ```
-TF_ACC=1 go test ./internal/service/rds/... -v -count 1 -parallel 20 -run=TestAccRDSInstance_DBSubnetGroupName_ramShared -timeout 180m
+TF_ACC=1 go test ./external/service/rds/... -v -count 1 -parallel 20 -run=TestAccRDSInstance_DBSubnetGroupName_ramShared -timeout 180m
 === RUN   TestAccRDSInstance_DBSubnetGroupName_ramShared
 === PAUSE TestAccRDSInstance_DBSubnetGroupName_ramShared
 === CONT  TestAccRDSInstance_DBSubnetGroupName_ramShared
@@ -177,7 +177,7 @@ make testacc TESTS='TestAccECSTaskDefinition_' PKG=ecs TESTARGS=-short
 Or:
 
 ```console
-TF_ACC=1 go test ./internal/service/ecs/... -v -count 1 -parallel 20 -run='TestAccECSTaskDefinition_' -short -timeout 180m
+TF_ACC=1 go test ./external/service/ecs/... -v -count 1 -parallel 20 -run='TestAccECSTaskDefinition_' -short -timeout 180m
 ```
 
 ## Writing an Acceptance Test
@@ -1189,7 +1189,7 @@ If the AWS SDK provides a builtin list paginator for the resource, it should be 
     }
     ```
 
-If no paginator is available, consider generating one using the [`listpages` generator](https://github.com/hashicorp/terraform-provider-aws/blob/main/internal/generate/listpages/README.md), or implement the sweeper as follows:
+If no paginator is available, consider generating one using the [`listpages` generator](https://github.com/hashicorp/terraform-provider-aws/blob/main/external/generate/listpages/README.md), or implement the sweeper as follows:
 
 === "Terraform Plugin Framework (Preferred)"
 
@@ -1357,7 +1357,7 @@ resource "aws_launch_configuration" "test" {
 
 #### Hardcoded Availability Zones
 
-- __Uses aws_availability_zones Data Source__: Any hardcoded AWS Availability Zone configuration, e.g. `us-west-2a`, should be replaced with the [`aws_availability_zones` data source](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/data-sources/availability_zones). Use the convenience function called `acctest.ConfigAvailableAZsNoOptIn()` (defined in `internal/acctest/acctest.go`) to declare `data "aws_availability_zones" "available" {...}`. You can then reference the data source via `data.aws_availability_zones.available.names[0]` or `data.aws_availability_zones.available.names[count.index]` in resources using `count`.
+- __Uses aws_availability_zones Data Source__: Any hardcoded AWS Availability Zone configuration, e.g. `us-west-2a`, should be replaced with the [`aws_availability_zones` data source](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/data-sources/availability_zones). Use the convenience function called `acctest.ConfigAvailableAZsNoOptIn()` (defined in `external/acctest/acctest.go`) to declare `data "aws_availability_zones" "available" {...}`. You can then reference the data source via `data.aws_availability_zones.available.names[0]` or `data.aws_availability_zones.available.names[count.index]` in resources using `count`.
 
 Here's an example of using `acctest.ConfigAvailableAZsNoOptIn()` and `data.aws_availability_zones.available.names[0]`:
 

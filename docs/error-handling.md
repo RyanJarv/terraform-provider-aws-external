@@ -88,7 +88,7 @@ The AWS Backup suffix is also extraneous and could change should the service eve
 
 Each AWS SDK for Go v2 service API typically implements common error codes, which get exported as public structs in the SDK. In the [AWS SDK for Go v2 API Reference](https://pkg.go.dev/github.com/aws/aws-sdk-go-v2), these can be found in each of the service packages `types` subpackage (typically named `{ErrorType}Exception`).
 
-If an AWS SDK for Go service API is missing an error code constant, an AWS Support case should be submitted and a new constant can be added to `internal/service/{SERVICE}/errors.go` file (created if not present), e.g.
+If an AWS SDK for Go service API is missing an error code constant, an AWS Support case should be submitted and a new constant can be added to `external/service/{SERVICE}/errors.go` file (created if not present), e.g.
 
 ```go
 const(
@@ -100,7 +100,7 @@ Then referencing code can use it via:
 
 ```go
 // imports
-tf{SERVICE} "github.com/hashicorp/terraform-provider-aws/internal/service/{SERVICE}"
+tf{SERVICE} "github.com/hashicorp/terraform-provider-aws/external/service/{SERVICE}"
 
 // logic
 tfawserr.ErrCodeEquals(err, tf{SERVICE}.ErrCodeInvalidParameterException)

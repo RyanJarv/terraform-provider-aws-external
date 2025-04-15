@@ -67,7 +67,7 @@ rules:
       - pattern-not-inside: |
           if !d.IsNewResource() && tfresource.NotFound($ERR) { ... }
           if $ERR != nil { ... }
-      # e.g. internal/service/dms/s3_endpoint.go
+      # e.g. external/service/dms/s3_endpoint.go
       - pattern-not-inside: |
           if !d.IsNewResource() && tfresource.NotFound($ERR) { ... }
           if $ERR == nil && ... {
@@ -76,12 +76,12 @@ rules:
             ...
           }
           if $ERR != nil { ... }
-      # e.g. internal/service/quicksight/analysis.go
+      # e.g. external/service/quicksight/analysis.go
       - pattern-not-inside: |
           if !d.IsNewResource() && tfresource.NotFound($ERR) { ... }
           if !d.IsNewResource() && ... { ... }
           if $ERR != nil { ... }
-      # e.g. internal/service/sagemaker/app.go
+      # e.g. external/service/sagemaker/app.go
       - pattern-not-inside: |
           if err != nil {
             if !d.IsNewResource() && tfresource.NotFound($ERR) { ... }

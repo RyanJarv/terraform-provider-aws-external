@@ -28,8 +28,8 @@ These files are heavily commented with instructions, serving as the best way to 
     ```
 
 1. Change into the appropriate directory.
-    - For resources and data sources, this is the service directory where the new entity will reside, e.g. `internal/service/mq`.
-    - For functions, this is `internal/functions`.
+    - For resources and data sources, this is the service directory where the new entity will reside, e.g. `internal/external/mq`.
+    - For functions, this is `external/functions`.
 1. Generate the resource, data source or function. For example,
     - `skaff resource --name BrokerReboot`.
     - `skaff datasource --name IAMRole`.

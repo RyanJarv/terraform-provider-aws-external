@@ -152,7 +152,7 @@ output "test" {
 With Terraform 1.8+ installed, individual tests can be run like:
 
 ```console
-go test -run='^TestExampleFunction' -v ./internal/function/
+go test -run='^TestExampleFunction' -v ./external/function/
 ```
 
 ### Create documentation for the resource

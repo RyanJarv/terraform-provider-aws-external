@@ -93,7 +93,7 @@ make testacc TESTS=TestAccVPCFlowLog_destinationError PKG=vpc
 
 ```
 ==> Checking that code complies with gofmt requirements...
-TF_ACC=1 go test ./internal/service/ec2/... -v -count 1 -parallel 20 -run='TestAccVPCFlowLog_destinationError'  -timeout 180m
+TF_ACC=1 go test ./external/service/ec2/... -v -count 1 -parallel 20 -run='TestAccVPCFlowLog_destinationError'  -timeout 180m
 === RUN   TestAccVPCFlowLog_destinationError
 === PAUSE TestAccVPCFlowLog_destinationError
 === CONT  TestAccVPCFlowLog_destinationError
@@ -108,7 +108,7 @@ TF_ACC=1 go test ./internal/service/ec2/... -v -count 1 -parallel 20 -run='TestA
         
 --- FAIL: TestAccVPCFlowLog_destinationError (13.79s)
 FAIL
-FAIL	github.com/hashicorp/terraform-provider-aws/internal/service/ec2	15.373s
+FAIL	github.com/hashicorp/terraform-provider-aws/external/service/ec2	15.373s
 FAIL
 make: *** [testacc] Error 1
 ```
@@ -158,14 +158,14 @@ make testacc TESTS=TestAccVPCFlowLog_LogDestinationType_s3 PKG=vpc
 
 ```
 ==> Checking that code complies with gofmt requirements...
-TF_ACC=1 go test ./internal/service/ec2/... -v -count 1 -parallel 20 -run='TestAccVPCFlowLog_LogDestinationType_s3'  -timeout 180m
+TF_ACC=1 go test ./external/service/ec2/... -v -count 1 -parallel 20 -run='TestAccVPCFlowLog_LogDestinationType_s3'  -timeout 180m
 === RUN   TestAccVPCFlowLog_LogDestinationType_s3
 === PAUSE TestAccVPCFlowLog_LogDestinationType_s3
 === CONT  TestAccVPCFlowLog_LogDestinationType_s3
     vpc_flow_log_test.go:269: Step 1/2 error: Check failed: Check 3/4 error: aws_flow_log.test: Attribute 'log_group_name' expected "abc-123", got ""
 --- FAIL: TestAccVPCFlowLog_LogDestinationType_s3 (15.49s)
 FAIL
-FAIL	github.com/hashicorp/terraform-provider-aws/internal/service/ec2	17.358s
+FAIL	github.com/hashicorp/terraform-provider-aws/external/ec2	17.358s
 FAIL
 make: *** [testacc] Error 1
 ```
@@ -304,7 +304,7 @@ make testacc TESTS=TestAccVPCFlowLog_LogDestinationType_s3 PKG=vpc
 
 ```
 ==> Checking that code complies with gofmt requirements...
-TF_ACC=1 go test ./internal/service/ec2/... -v -count 1 -parallel 20 -run='TestAccVPCFlowLog_LogDestinationType_s3'  -timeout 180m
+TF_ACC=1 go test ./external/service/ec2/... -v -count 1 -parallel 20 -run='TestAccVPCFlowLog_LogDestinationType_s3'  -timeout 180m
 === RUN   TestAccVPCFlowLog_LogDestinationType_s3
 === PAUSE TestAccVPCFlowLog_LogDestinationType_s3
 === CONT  TestAccVPCFlowLog_LogDestinationType_s3

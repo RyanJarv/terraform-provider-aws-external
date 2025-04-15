@@ -23,7 +23,7 @@ Use the [skaff](skaff.md) provider scaffolding tool to generate new ephemeral re
 
 ### Fill out the Ephemeral Resource Schema
 
-In the `internal/service/<service>/<service>_ephemeral.go` file, you'll find a `Schema` property, which is a map of `Schema` objects. This maps the AWS API data model to the Terraform resource. To make a property available in Terraform, add it as an attribute with the appropriate data type.
+In the `external/service/<service>/<service>_ephemeral.go` file, you'll find a `Schema` property, which is a map of `Schema` objects. This maps the AWS API data model to the Terraform resource. To make a property available in Terraform, add it as an attribute with the appropriate data type.
 
 Define attributes using `snake_case`, instead of the `CamelCase` format used by the AWS API.
 
@@ -42,7 +42,7 @@ import (
 	"context"
 	
 	"github.com/hashicorp/terraform-plugin-framework/ephemeral"
-	"github.com/hashicorp/terraform-provider-aws/internal/framework"
+	"github.com/hashicorp/terraform-provider-aws/external/framework"
 )
 
 // @EphemeralResource("aws_something_example", name="Example")

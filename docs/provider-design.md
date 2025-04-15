@@ -65,7 +65,7 @@ The rationale behind this design decision includes the following:
 * Unexpected IAM permissions being necessary for the resource. In high-security environments, all the service permissions may not be available or acceptable.
 * Unexpected services generating CloudTrail logs for the resource.
 * Needing extra and unexpected API endpoints configuration for organizations using custom endpoints, such as VPC endpoints.
-* Unexpected changes to the AWS service internals for the cross-service implementations. Given that this functionality is not part of the primary service API, these details can change over time and may not be considered as a breaking change by the service team for an API upgrade.
+* Unexpected changes to the AWS service externals for the cross-service implementations. Given that this functionality is not part of the primary service API, these details can change over time and may not be considered as a breaking change by the service team for an API upgrade.
 
 A poignant real-world example of the last point involved a Lambda resource. The resource helped clean up extra resources (ENIs) due to a common misconfiguration. Practitioners found the functionality helpful since the issue was hard to diagnose. Years later, AWS updated the Lambda API. Immediately, practitioners reported that Terraform executions were failing. Downgrading the provider was not possible since many configurations depended on recent releases. For environments running many versions behind, forcing an upgrade with the fix would likely cause unrelated and unexpected changes. In the end, HashiCorp and AWS performed a large-scale outreach to help upgrade and fix the misconfigurations. Provider maintainers and practitioners lost considerable time.
 

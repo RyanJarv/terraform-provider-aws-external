@@ -35,7 +35,7 @@ func TestAccExampleThing_disappears(t *testing.T) {
 }
 ```
 
-“Disappears” tests are distinctive in that they *expect* a non-empty plan because a deletion was intentionally triggered during the check phase via the [`acctest.CheckResourceDisappears`](https://github.com/hashicorp/terraform-provider-aws/blob/3f01f342585ac1656fe6421f196a5850a9c3b685/internal/acctest/acctest.go#L1474-L1493) helper. The impacted resource should be dropped from state during the post apply refresh, and therefore planned to be re-created. `ExpectNonEmptyPlan` ensures we don’t fail to detect out of band deletions, however, it doesn’t explicitly verify *what* changes are planned.
+“Disappears” tests are distinctive in that they *expect* a non-empty plan because a deletion was intentionally triggered during the check phase via the [`acctest.CheckResourceDisappears`](https://github.com/hashicorp/terraform-provider-aws/blob/3f01f342585ac1656fe6421f196a5850a9c3b685/external/acctest/acctest.go#L1474-L1493) helper. The impacted resource should be dropped from state during the post apply refresh, and therefore planned to be re-created. `ExpectNonEmptyPlan` ensures we don’t fail to detect out of band deletions, however, it doesn’t explicitly verify *what* changes are planned.
 
 In [`v1.2.0`](https://github.com/hashicorp/terraform-plugin-testing/releases/tag/v1.2.0), the [`terraform-plugin-testing`](https://github.com/hashicorp/terraform-plugin-testing) library introduced a `plancheck` package with an `ExpectResourceAction` built-in plan check, which asserts that a given resource will have a specific resource change type in the plan. With this check “disappears” tests can explicitly verify the plan of the deleted resource.
 
