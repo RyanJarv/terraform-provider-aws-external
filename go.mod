@@ -216,7 +216,7 @@ require (
 	github.com/aws/aws-sdk-go-v2/service/route53profiles v1.5.4
 	github.com/aws/aws-sdk-go-v2/service/route53recoverycontrolconfig v1.27.1
 	github.com/aws/aws-sdk-go-v2/service/route53recoveryreadiness v1.22.2
-	github.com/aws/aws-sdk-go-v2/service/route53resolver v1.35.2
+	github.com/aws/aws-sdk-go-v2/service/route53resolver v1.35.3
 	github.com/aws/aws-sdk-go-v2/service/rum v1.24.1
 	github.com/aws/aws-sdk-go-v2/service/s3 v1.79.2
 	github.com/aws/aws-sdk-go-v2/service/s3control v1.56.3
@@ -251,7 +251,7 @@ require (
 	github.com/aws/aws-sdk-go-v2/service/sts v1.33.19
 	github.com/aws/aws-sdk-go-v2/service/swf v1.28.3
 	github.com/aws/aws-sdk-go-v2/service/synthetics v1.32.3
-	github.com/aws/aws-sdk-go-v2/service/taxsettings v1.11.0
+	github.com/aws/aws-sdk-go-v2/service/taxsettings v1.12.0
 	github.com/aws/aws-sdk-go-v2/service/timestreaminfluxdb v1.10.3
 	github.com/aws/aws-sdk-go-v2/service/timestreamquery v1.30.2
 	github.com/aws/aws-sdk-go-v2/service/timestreamwrite v1.30.2

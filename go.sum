@@ -453,8 +453,8 @@ github.com/aws/aws-sdk-go-v2/service/route53recoverycontrolconfig v1.27.1 h1:LfW
 github.com/aws/aws-sdk-go-v2/service/route53recoverycontrolconfig v1.27.1/go.mod h1:yccYWfGd7VeSZfgL2bjd/cKwNnFU3hagBBcZyvIuh0g=
 github.com/aws/aws-sdk-go-v2/service/route53recoveryreadiness v1.22.2 h1:tBey8GpJdkv3JWTcI6osozX5Rhkp/gyNHrtt5cjm1Q8=
 github.com/aws/aws-sdk-go-v2/service/route53recoveryreadiness v1.22.2/go.mod h1:Wp2pFlYX10D02Ze9xLe9/hC5xIb0nawvfB9u9quQOeA=
-github.com/aws/aws-sdk-go-v2/service/route53resolver v1.35.2 h1:vkzTQVrcCTBq5vXxEzCe/zIyg3ozWOv4403MJVw/Qts=
-github.com/aws/aws-sdk-go-v2/service/route53resolver v1.35.2/go.mod h1:0xjGNqPmjnmstn6DD5RTVfp6Ds1t2L0UbHndl/PIxfE=
+github.com/aws/aws-sdk-go-v2/service/route53resolver v1.35.3 h1:9PYkcqQCDp5eGk3TidSNvBUMsRPZXunM+J9EtD0NGUs=
+github.com/aws/aws-sdk-go-v2/service/route53resolver v1.35.3/go.mod h1:0xjGNqPmjnmstn6DD5RTVfp6Ds1t2L0UbHndl/PIxfE=
 github.com/aws/aws-sdk-go-v2/service/rum v1.24.1 h1:uuj0yb6wB9c5YAjaQYXOJS/rjRn/LNCoW8fW1Mi4XZU=
 github.com/aws/aws-sdk-go-v2/service/rum v1.24.1/go.mod h1:epo2m9j8JQQdXVfSa6kRCu7U5reVhgdq/MsbZR/ouPg=
 github.com/aws/aws-sdk-go-v2/service/s3 v1.79.2 h1:tWUG+4wZqdMl/znThEk9tcCy8tTMxq8dW0JTgamohrY=
@@ -525,8 +525,8 @@ github.com/aws/aws-sdk-go-v2/service/swf v1.28.3 h1:wpKZqKyVSI8tciKsSLZC6czSyHeU
 github.com/aws/aws-sdk-go-v2/service/swf v1.28.3/go.mod h1:Fx4V9i/8NUA6PJKHyK+Lr7xbuR17E3seOV/yXgwxPQk=
 github.com/aws/aws-sdk-go-v2/service/synthetics v1.32.3 h1:MQqep4YE5h2I5IhrYhaC6vSb9cDxfgm33N8RrlRiw90=
 github.com/aws/aws-sdk-go-v2/service/synthetics v1.32.3/go.mod h1:6injPYKC0jQL8VdfngzjGN3resaU9LzmX27mI3Z1luI=
-github.com/aws/aws-sdk-go-v2/service/taxsettings v1.11.0 h1:TzMx+fKMZRhEQ+iOKxsjGk+x7cHHdZl/1Uxo2OfWQu0=
-github.com/aws/aws-sdk-go-v2/service/taxsettings v1.11.0/go.mod h1:Gfn8OpngeN6oHvNamfbujvSGQNBHbq7eJewS1GpZB8I=
+github.com/aws/aws-sdk-go-v2/service/taxsettings v1.12.0 h1:G17V4wA1UB9PphyQGAcy8WOfVCJYteRmD4RV86QkA8c=
+github.com/aws/aws-sdk-go-v2/service/taxsettings v1.12.0/go.mod h1:Gfn8OpngeN6oHvNamfbujvSGQNBHbq7eJewS1GpZB8I=
 github.com/aws/aws-sdk-go-v2/service/timestreaminfluxdb v1.10.3 h1:3rb6NGANDa8iCbHYyB8+roouC5BGYLA/Kdm7kjuQQbI=
 github.com/aws/aws-sdk-go-v2/service/timestreaminfluxdb v1.10.3/go.mod h1:h/mIoWp8J3rhg0fULx9BAm9TaJsSodNZs0e6eYXc7aQ=
 github.com/aws/aws-sdk-go-v2/service/timestreamquery v1.30.2 h1:w7s5Bxzu5sUpuWq/eHsvew2YH0oyzBM0+ExNCyPfoEQ=
