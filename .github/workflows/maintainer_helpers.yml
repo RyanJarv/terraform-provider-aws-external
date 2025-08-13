@@ -229,7 +229,7 @@ jobs:
 
       - name: Open Maintainer Pull Request Stats
         if: steps.token.outcome != 'skipped'
-        uses: breathingdust/github-team-slackbot@3519d5c7bdd556317b6158aeff5ae9c93c960bdd # v18.5.2
+        uses: breathingdust/github-team-slackbot@86aab12fa9d04755f51c543c9211acf6caa7005a # v18.5.4
         with:
           github_token: ${{ steps.token.outputs.token }}
           team_slug: terraform-aws
